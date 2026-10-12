@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f8ff">
+  <title>EMI IQ — Smarter Loans, Brighter Futures</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="EMI IQ home">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span class="brand-name">EMI <b>IQ</b></span>
+        <span class="brand-divider"></span>
+        <span class="brand-tagline">Smarter loans. Brighter futures.</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#home">⌂ <span>Home</span></a>
+        <a class="nav-link" href="#compare">⇄ <span>Compare</span></a>
+        <a class="nav-link" href="#insights">✧ <span>Insights</span></a>
+      </nav>
+      <button class="plan-button" id="planButton" type="button">Plan smarter <span>↗</span></button>
+    </header>
+
+    <main id="home">
+      <section class="hero-grid">
+        <aside class="panel loan-panel">
+          <div class="section-heading">
+            <span class="heading-icon blue">⌁</span>
+            <div><h2>Loan details</h2><p>Shape your loan, your way.</p></div>
+          </div>
+
+          <form id="loanForm" novalidate>
+            <label for="loanAmount">Loan amount <span>(₹)</span></label>
+            <div class="input-wrap"><span class="input-icon">₹</span><input id="loanAmount" name="loanAmount" type="number" min="10000" max="50000000" step="1000" value="1000000" inputmode="numeric" required></div>
+            <p class="hint">₹10,000 – ₹5,00,00,000</p>
+            <p class="field-error" id="amountError" aria-live="polite"></p>
+
+            <label for="interestRate">Annual interest rate <span>(%)</span></label>
+            <div class="input-wrap"><span class="input-icon">%</span><input id="interestRate" name="interestRate" type="number" min="0" max="30" step="0.1" value="8.5" inputmode="decimal" required></div>
+            <p class="hint">Choose a rate from 0% to 30%</p>
+            <p class="field-error" id="rateError" aria-live="polite"></p>
+
+            <label for="tenure">Loan tenure <span>(years)</span></label>
+            <div class="input-wrap"><span class="input-icon">▦</span><input id="tenure" name="tenure" type="number" min="1" max="30" step="1" value="5" inputmode="numeric" required></div>
+            <p class="hint">1 – 30 years</p>
+            <p class="field-error" id="tenureError" aria-live="polite"></p>
+
+            <details class="advanced-options" open>
+              <summary><span>☷</span> Advanced options <span class="summary-chevron">⌄</span></summary>
+              <div class="extra-payment-row">
+                <label for="extraPayment">Extra monthly payment <small>(optional)</small></label>
+                <label class="switch" aria-label="Enable extra monthly payment">
+                  <input id="extraEnabled" type="checkbox" checked>
+                  <span class="switch-track"></span>
+                </label>
+              </div>
+              <div class="input-wrap extra-input"><span class="input-icon">₹</span><input id="extraPayment" type="number" min="0" max="1000000" step="500" value="2000" inputmode="numeric"></div>
+              <p class="hint">An extra amount can help reduce interest and loan duration.</p>
+            </details>
+
+            <button class="primary-button" type="submit">Calculate my EMI <span>→</span></button>
+            <p class="form-note"><span>ⓘ</span> Estimates only. Actual terms depend on your lender.</p>
+          </form>
+        </aside>
+
+        <section class="visualizer" aria-labelledby="visualTitle">
+          <div class="visualizer-heading">
+            <div>
+              <p class="eyebrow">YOUR MONEY, MADE CLEAR</p>
+              <h1 id="visualTitle">Visualize your <span>loan.</span></h1>
+              <p class="hero-copy">Explore how your money flows, where it goes, and how you could save.</p>
+            </div>
+            <span class="scribble">Adjust the values<br>to explore ↙</span>
+          </div>
+
+          <div class="orbit-stage" id="orbitStage">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+            <button class="orbit-planet principal-planet" data-detail="principal" type="button" aria-label="View principal details">
+              <span class="planet-icon">▤</span><strong>Principal</strong><b id="planetPrincipal">₹10,00,000</b><small id="planetPrincipalShare">66.7% of total</small>
+            </button>
+            <button class="orbit-planet interest-planet" data-detail="interest" type="button" aria-label="View interest details">
+              <span class="planet-icon">%</span><strong>Total interest</strong><b id="planetInterest">₹2,74,749</b><small id="planetInterestShare">33.3% of total</small>
+            </button>
+            <button class="orbit-planet tenure-planet" data-detail="tenure" type="button" aria-label="View tenure details">
+              <span class="planet-icon">▦</span><strong>Tenure</strong><b id="planetTenure">5 years</b><small id="planetMonths">60 months</small>
+            </button>
+            <button class="orbit-planet repayment-planet" data-detail="repayment" type="button" aria-label="View total repayment details">
+              <span class="planet-icon">₹</span><strong>Total repayment</strong><b id="planetRepayment">₹12,74,749</b><small>Principal + interest</small>
+            </button>
+            <button class="emi-core" id="emiCore" data-detail="emi" type="button" aria-label="View monthly EMI details">
+              <span class="core-label">Monthly EMI</span><strong id="monthlyEmi">₹20,517</strong><span class="status-pill"><i></i> On track</span>
+            </button>
+            <div class="detail-popover" id="detailPopover" role="status" aria-live="polite">
+              <button class="popover-close" id="closePopover" type="button" aria-label="Close details">×</button>
+              <strong id="popoverTitle">Monthly EMI</strong><p id="popoverText">Your estimated monthly payment.</p>
+            </div>
+          </div>
+          <p class="visualizer-footnote"><span class="dot"></span> Tap a planet to learn what each number means.</p>
+        </section>
+
+        <aside class="panel insights-panel" id="insights">
+          <div class="section-heading">
+            <span class="heading-icon amber">✧</span>
+            <div><h2>Quick insights</h2><p>Your loan at a glance.</p></div>
+          </div>
+          <div class="insight-card mint-card">
+            <span class="insight-icon">₹</span><div><small>Total repayment</small><strong id="insightRepayment">₹12,74,749</strong><p>Across the full loan</p></div>
+          </div>
+          <div class="insight-card peach-card">
+            <span class="insight-icon">%</span><div><small>Interest share</small><strong id="insightShare">21.5%</strong><p>Of total repayment</p></div>
+          </div>
+          <div class="insight-card lilac-card">
+            <span class="insight-icon">▦</span><div><small>Loan term</small><strong id="insightTenure">5 years</strong><p id="insightMonths">60 monthly payments</p></div>
+          </div>
+          <div class="insight-card sky-card">
+            <span class="insight-icon">↗</span><div><small>Monthly EMI</small><strong id="insightEmi">₹20,517</strong><p>Before optional extra payment</p></div>
+          </div>
+          <div class="suggestion-card">
+            <span class="suggestion-icon">◎</span>
+            <div><strong>Smart suggestion</strong><p id="smartSuggestion">Try an extra payment to see how much interest you might save.</p></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel breakdown-panel">
+          <div class="panel-title"><span class="mini-icon orange">▥</span><h2>Repayment breakdown</h2></div>
+          <div class="breakdown-content">
+            <div class="donut" id="donutChart" role="img" aria-label="Principal and interest breakdown"><div class="donut-center"><strong id="donutTotal">₹12.75L</strong><span>Total repayment</span></div></div>
+            <div class="legend">
+              <div><i class="legend-dot principal-dot"></i><span>Principal amount</span><strong id="breakPrincipal">₹10,00,000</strong><small id="breakPrincipalShare">78.4%</small></div>
+              <div><i class="legend-dot interest-dot"></i><span>Interest amount</span><strong id="breakInterest">₹2,30,998</strong><small id="breakInterestShare">21.6%</small></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel schedule-panel">
+          <div class="panel-title"><span class="mini-icon blue">⌁</span><h2>Amortization schedule</h2><button id="toggleSchedule" class="text-button" type="button">View full schedule →</button></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Year</th><th>Principal (₹)</th><th>Interest (₹)</th><th>Balance (₹)</th></tr></thead>
+              <tbody id="scheduleBody"></tbody>
+            </table>
+          </div>
+          <p class="table-note" id="scheduleNote">Yearly estimates based on the selected loan details.</p>
+        </article>
+
+        <article class="panel shock-panel" id="compare">
+          <div class="panel-title"><span class="mini-icon orange">⌁</span><h2>Interest shock test</h2></div>
+          <p class="panel-description">What if the annual interest rate changes?</p>
+          <div class="range-row"><input id="shockSlider" type="range" min="-2" max="5" step="0.5" value="1" aria-label="Interest rate adjustment"><output id="shockOutput">+1%</output></div>
+          <div class="shock-results">
+            <div class="shock-result current"><small id="currentRateLabel">8.5%</small><strong id="currentShockEmi">₹20,517</strong><span>Current EMI</span></div>
+            <div class="shock-result changed"><small id="changedRateLabel">9.5%</small><strong id="changedShockEmi">₹20,996</strong><span>New EMI</span></div>
+          </div>
+          <div class="shock-difference"><strong id="shockDifference">+₹479</strong><span>per month</span></div>
+        </article>
+      </section>
+
+      <section class="panel scenarios-panel">
+        <div class="panel-title"><span class="mini-icon orange">◇</span><h2>Explore scenarios</h2><p>Small changes can make a difference.</p></div>
+        <div class="scenario-grid">
+          <button class="scenario-card" data-scenario="shorter" type="button"><span class="scenario-icon lilac-icon">▦</span><span><strong>Shorter tenure</strong><small>Pay more now, finish sooner.</small></span><b>→</b></button>
+          <button class="scenario-card" data-scenario="rate" type="button"><span class="scenario-icon orange-icon">%</span><span><strong>Lower interest rate</strong><small>See the value of a better deal.</small></span><b>→</b></button>
+          <button class="scenario-card" data-scenario="down" type="button"><span class="scenario-icon green-icon">▤</span><span><strong>Higher down payment</strong><small>Borrow less, reduce interest.</small></span><b>→</b></button>
+          <button class="scenario-card" data-scenario="custom" type="button"><span class="scenario-icon blue-icon">⌁</span><span><strong>Reset to custom</strong><small>Return to your entered values.</small></span><b>→</b></button>
+        </div>
+        <div class="scenario-result" id="scenarioResult" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer><a class="footer-brand" href="#home">EMI IQ</a><span>Your personal loan companion</span><span class="footer-right">Calculate · Compare · Plan smarter</span></footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
